@@ -1,0 +1,11 @@
+node_modules
+target
+.vscode
+npm-debug.log
+.nyc_output
+test/data/
+data
+logs
+tmp
+node_modules
+.vscode
