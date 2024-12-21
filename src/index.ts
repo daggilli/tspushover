@@ -1,70 +1,27 @@
 #!/usr/bin/env node
 'use strict';
 import fs from 'fs';
-import Pushover from 'pushover-notifications';
-import {DEFAULT_PRIORITY} from './constants';
+import { PushoverConfig, PushoverMessage } from './interfaces';
+import { PushoverClient } from './pushoverclient';
+import { jsonFormat } from './utilities';
 
-interface PushoverConfig {
-  apiToken: string;
-  userId: string;
-  device?: string;
-  priority?: number;
-}
-
-interface PushoverMessage {
-  message: string;
-  title?: string;
-  device?: string;
-  priority?: number;
-  timestamp?: number;
-};
-
-interface PushoverResponse {
-  status: number;
-  request: string;
-}
-
-class PushoverClient {
-  private config: any = {};
-  private pover: Pushover;
-
-  public constructor(cfg: PushoverConfig) {
-    this.config = JSON.parse(JSON.stringify(cfg));
-    this.pover = new Pushover({
-      user: this.config.userId,
-      token: this.config.apiToken,
-    });
-  }
-
-  public async send(message: PushoverMessage): Promise<PushoverResponse | Error> {
-    return new Promise((resolve: Function, reject: Function) => {
-      if(message.priority === undefined || message.priority === null) {
-        message.priority = this.config.priority || DEFAULT_PRIORITY;
-      }
-      this.pover.send(message, (err: Error, result: PushoverResponse) => {
-        if(err) {
-          reject(err);
-        }
-
-        resolve(result);
-      });
-    });
-  }
-}
-
-(async() => {
+(async () => {
   const config: PushoverConfig = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 
-  const p = new PushoverClient(config);
+  const pushclient = new PushoverClient(config);
 
   const msg: PushoverMessage = {
-    message: `node test @ ${new Date().toISOString()}`,
-    title: 'TS pushover class test',
+    message: `node test with new API and refactoring @ ${new Date().toISOString()}`,
+    title: 'TS pushover class test new 21 DEC 24',
     device: config.device,
-    priority: 1,
-    timestamp: Math.round(Date.now() / 1000.),
+    priority: 0,
+    sound: 'alien',
   };
 
-  const result = await p.send(msg);
-  console.log(result);
+  try {
+    const result = await pushclient.send(msg);
+    console.log(jsonFormat(result));
+  } catch (e) {
+    console.error(e);
+  }
 })();

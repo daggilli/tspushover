@@ -1,2 +1,5 @@
 'use strict';
-export const DEFAULT_PRIORITY = 0;
+import type { Priority, Sound } from './interfaces';
+export const DEFAULT_PRIORITY: Priority = 0;
+export const DEFAULT_SOUND: Sound = 'none';
+
