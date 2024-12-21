@@ -1,20 +1,19 @@
 #!/usr/bin/env node
 'use strict';
-import fs from 'fs';
 import { PushoverConfig, PushoverMessage } from './interfaces';
 import { PushoverClient } from './pushoverclient';
-import { jsonFormat } from './utilities';
+import { jsonFormat, loadObject } from './utilities';
+import { format } from "date-fns";
 
 (async () => {
-  const config: PushoverConfig = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
+  const config: PushoverConfig = loadObject('./config.json');
 
   const pushclient = new PushoverClient(config);
 
   const msg: PushoverMessage = {
     message: `node test with new API and refactoring @ ${new Date().toISOString()}`,
-    title: 'TS pushover class test new 21 DEC 24',
+    title: `TypeScript pushover class test new ${format(new Date(), "yyyy-MM-dd")}`,
     device: config.device,
-    priority: 0,
     sound: 'alien',
   };
 

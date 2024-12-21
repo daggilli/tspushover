@@ -13,7 +13,7 @@ export const writeString = (filename: string, data: string) => {
 
   fs.writeFileSync(filename, data);
 };
-export const loadObject = (filename: string) => {
+export const loadObject: <T>(filename: string) => T = (filename: string) => {
   // eslint-disable-next-line
   const fs = require('fs');
 
