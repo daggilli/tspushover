@@ -7,6 +7,12 @@ export const dumpObject = (filename: string, obj: object) => {
 
   fs.writeFileSync(filename, jsonFormat(obj));
 };
+export const loadString = (filename: string): string => {
+  // eslint-disable-next-line
+  const fs = require('fs');
+
+  return fs.readFileSync(filename, { encoding: 'utf8', flag: "r" });
+};
 export const writeString = (filename: string, data: string) => {
   // eslint-disable-next-line
   const fs = require('fs');
