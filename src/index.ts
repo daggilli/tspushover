@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 'use strict';
 import { PushoverConfig, PushoverMessage } from './interfaces';
+import { jsonFormat } from './jsonFormat';
 import { PushoverClient } from './pushoverclient';
-import { jsonFormat, loadObject } from './utilities';
+import { loadObject } from './utilities';
 import { format } from "date-fns";
 
 (async () => {

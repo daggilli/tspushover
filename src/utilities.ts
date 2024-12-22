@@ -1,6 +1,5 @@
 'use strict';
-
-export const jsonFormat = (obj: object, tabs = 2): string => JSON.stringify(obj, null, tabs);
+import { jsonFormat } from "./jsonFormat";
 export const dumpObject = (filename: string, obj: object) => {
   // eslint-disable-next-line
   const fs = require('fs');

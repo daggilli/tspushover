@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "TS Pushover class",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "start": "node target/dist/index.js",
     "build": "npm run lint && tsc",
